@@ -1,15 +1,16 @@
-# Losungen aktualisieren
-Die Datei "Losungen.csv" ist jedes Jahr manuell zu ersetzen.
-Zuerst muss man die Datei "Losungen.csv" löschen oder umbenennen.
+# Update Losungen.csv
+You MUST update "Losungen.csv" every year.
+First, either rename or delete it.
 
-Hier kann man die neueste Version herunterladen:
+Download the newest Version here.
 
 https://www.losungen.de/digital/
 
-Es muss hierbei die Datei "Losungen CSV / TXT (Tab getrennt)" ausgewählt werden.
+You will need the file "Losungen CSV / TXT (Tab getrennt)".
 
-Es wird nun eine .zip Datei heruntergeladen, in dieser befindet sich eine 
-.csv Datei mit den Losungen. Diese muss extrahiert werden, in Losungen.csv umbenannt 
-und in die Ebene dieses Dokuments eingefügt werden.
+Download this zip file and extract it.
+You will find a csv file there, copy it to this directory root and rename it 
+"Losungen.csv"
 
-Der Bot kann nun neu gestartet werden, findet er die Datei nicht, gibt er einen Fehler aus. 
+Restart the bot and wait until he started up.
+If you've made a mistake or if there is no file, he'll print an error. 

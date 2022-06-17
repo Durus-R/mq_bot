@@ -1,13 +1,13 @@
-# Wie man einen Token erstellt
-- Gehe zu <a href="https://discord.com/developers/applications">https://discord.com/developers/applications
-- Erstelle hier eine neue Application oder gehe zu einer Existierenden
-- Gehe zu "Bot" und klicke auf "Create Bot" (wenn du noch keinen erstellt hast)
-- Gehe zu "Token" und klicke auf "Reveal Token", oder erstelle einen neuen Token.
-- Wenn der Bot lange nicht genutzt wurde, musst du einen neuen Token erstellen.
-- Kopiere den Token und füge ihn in eine neue Datei namens "Token.txt" ein.
+# How to create a token
+- Go to <a href="https://discord.com/developers/applications">https://discord.com/developers/applications
+- Create a new application here or go to an existing one
+- Go to "Bot" and click on "Create Bot" (if you haven't created one yet)
+- Go to "Token" and click on "Reveal Token", or create a new token.
+- If the bot has not been used for a long time, you need to create a new token.
+- Copy the token and paste it into a new file named "Token.txt".
 
-Natürlich kannst du auch einen existierenden Token verwenden.
+Of course you can also use an existing token.
 
-Kopiere den Token und füge ihn in eine neue Datei namens "Token.txt" ein.
+Copy the token and paste it into a new file named "Token.txt".
 
-Die Datei muss in derselben Ebene sein, wie diese Datei.
+The file must be in the same directory as this file.
