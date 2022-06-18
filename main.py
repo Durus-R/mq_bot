@@ -16,9 +16,20 @@ class Losungen(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    async def info(self, ctx):
+        """
+        Zeigt Informationen über den Bot an.
+        """
+        await ctx.send(f'{self.bot.user.mention} ist ein Bot, der die Losungen einliest und sie hier schicken kann'
+                       f'. \nMehr Info auf der Github-Seite: https://github.com/mainquestministries/mq_bot'
+                       "\n Mit freundlicher Genehmigung der Herrnhuter Brüdergemeinde, siehe "
+                       "https://www.losungen.de/fileadmin/media-losungen/download/NUTZUNGSBEDINGUNGEN_November_2021.pdf"
+                       )
+
+    @commands.command()
     async def contribute(self, ctx):
         """
-        Returns the link to the GitHub repository.
+        Zeigt den Link zur GitHub-Seite.
         """
         await ctx.send("https://github.com/mainquestministries/mq_bot")
 

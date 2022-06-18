@@ -1,4 +1,4 @@
-class WordOfDay:
+class Losung:
     def __init__(self, at_v : str, at :str, nt_v: str, nt : str, date : str, wt : str):
         self.nt_v = nt_v
         self.nt = nt
