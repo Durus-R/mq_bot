@@ -3,10 +3,27 @@ from discord.ext import commands
 from csvparser import CsvParser, DateNotFoundError
 
 
+# Check whether the file "token.txt" exists
+def check_token():
+    if not os.path.isfile("token.txt"):
+        print("Token datei nicht gefunden. Platzieren sie die Datei in der gleichen Ebene wie dieses Script.")
+        print("ABBRUCH")
+        exit()
+
+    # Check whether the file "token.txt" is empty
+    if not os.path.getsize("token.txt"):
+        print("Token datei ist leer. Bitte fügen Sie einen Token ein.")
+        print("ABBRUCH")
+        exit()
+
+
 def get_token():
     """
     Returns the token of the bot.
     """
+    if os.path.isfile("/SECRET/token.txt"):
+        return open('/SECRET/token.txt', 'r').read()
+    check_token()
     return open('token.txt', 'r').read()
 
 
@@ -77,18 +94,6 @@ class Losungen(commands.Cog):
 # Create a discord bot with discord.ext
 Bot = commands.Bot(command_prefix='!')
 Bot.add_cog(Losungen(Bot))
-
-# Check whether the file "token.txt" exists
-if not os.path.isfile("token.txt"):
-    print("Token datei nicht gefunden. Platzieren sie die Datei in der gleichen Ebene wie dieses Script.")
-    print("ABBRUCH")
-    exit()
-
-# Check whether the file "token.txt" is empty
-if not os.path.getsize("token.txt"):
-    print("Token datei ist leer. Bitte fügen Sie einen Token ein.")
-    print("ABBRUCH")
-    exit()
 
 # Check whether the file "Losungen.csv" exists
 if not os.path.isfile("Losungen.csv"):
