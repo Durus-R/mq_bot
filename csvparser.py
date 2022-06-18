@@ -2,8 +2,10 @@ import csv
 import datetime
 from word_of_day import WordOfDay
 
+
 class DateNotFoundError(Exception):
     pass
+
 
 class CsvParser:
     """
@@ -27,8 +29,7 @@ class CsvParser:
     def get_csv_column(self, column_number):
         return [row[column_number] for row in self.csv_list]
 
-    @staticmethod
-    def get_date():
+    def get_date(self):
         """
         Returns the current date as a string.
         """
@@ -43,7 +44,7 @@ class CsvParser:
             if today in self.csv_list[i]:
                 return i
 
-    def is_today_in_Lines(self):
+    def is_today_in_lines(self):
         """
         Returns True if the current date is in the CSV file.
         """
@@ -54,8 +55,7 @@ class CsvParser:
         return False
 
     def __call__(self) -> WordOfDay:
-        if not self.is_today_in_Lines():
+        if not self.is_today_in_lines():
             raise DateNotFoundError
         line = self.get_csv_row(self.get_line_of_today())
         return WordOfDay(line[3], line[4], line[5], line[6], line[0], line[1])
-

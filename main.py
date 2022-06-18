@@ -18,28 +18,42 @@ class Losungen(commands.Cog):
     @commands.command(name="altes")
     async def altes_testament(self, ctx):
         """
-        Returns the word of the day from the Altes Testament.
+        Sendet den heutigen Losungstext.
         """
         csv_parser = CsvParser("Losungen.csv")
         try:
             word_of_day = csv_parser()
         except DateNotFoundError:
-            await ctx.send("Dieser Tag ist nicht in der Liste.")
+            await ctx.send("Dieser Tag ist nicht in der Liste. Bitte eröffnen sie ein Ticket auf GitHub.")
             return
         await ctx.send(word_of_day.at_v + ": " + word_of_day.at)
 
     @commands.command(name="neues")
     async def neues_testament(self, ctx):
         """
-        Returns the word of the day from the Altes Testament.
+        Sendet den heutigen Lehrtext.
         """
         csv_parser = CsvParser("Losungen.csv")
         try:
             word_of_day = csv_parser()
         except DateNotFoundError:
-            await ctx.send("Dieser Tag ist nicht in der Liste.")
+            await ctx.send("Dieser Tag ist nicht in der Liste. Bitte eröffnen sie ein Ticket auf GitHub.")
             return
         await ctx.send(word_of_day.nt_v + ": " + word_of_day.nt)
+
+    @commands.command(name="losung")
+    async def losung(self, ctx):
+        """
+        Sendet die heutige Losung.
+        """
+        csv_parser = CsvParser("Losungen.csv")
+        try:
+            word_of_day = csv_parser()
+        except DateNotFoundError:
+            await ctx.send("Dieser Tag ist nicht in der Liste. Bitte eröffnen sie ein Ticket auf GitHub.")
+            return
+        await ctx.send("Losungstext: " + word_of_day.at_v + ": " + word_of_day.at + "\n" +
+                       "Lehrtext: " + word_of_day.nt_v + ": " + word_of_day.nt)
 
 
 # Create a discord bot with discord.ext
@@ -77,6 +91,6 @@ if not os.path.getsize("Losungen.csv"):
 async def on_ready():
     print("Bot ist bereit.")
 
+
 if __name__ == '__main__':
     Bot.run(get_token())
-
