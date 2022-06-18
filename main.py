@@ -15,6 +15,13 @@ class Losungen(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command()
+    async def contribute(self, ctx):
+        """
+        Returns the link to the GitHub repository.
+        """
+        await ctx.send("https://github.com/mainquestministries/mq_bot")
+
     @commands.command(name="altes")
     async def altes_testament(self, ctx):
         """
