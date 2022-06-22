@@ -35,8 +35,9 @@ def get_token():
 
 # Main cog
 class Losungen(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot, parser):
         self.bot = bot
+        self.parser = parser
 
     @commands.command()
     async def info(self, ctx):
@@ -61,7 +62,7 @@ class Losungen(commands.Cog):
         """
         Sendet den heutigen Losungstext.
         """
-        csv_parser = CsvParser("../Losungen.csv")
+        csv_parser = self.parser
         try:
             word_of_day = csv_parser()
         except DateNotFoundError:
@@ -74,7 +75,7 @@ class Losungen(commands.Cog):
         """
         Sendet den heutigen Lehrtext.
         """
-        csv_parser = CsvParser("../Losungen.csv")
+        csv_parser = self.parser
         try:
             word_of_day = csv_parser()
         except DateNotFoundError:
@@ -87,7 +88,7 @@ class Losungen(commands.Cog):
         """
         Sendet die heutige Losung.
         """
-        csv_parser = CsvParser("../Losungen.csv")
+        csv_parser = self.parser
         try:
             word_of_day = csv_parser()
         except DateNotFoundError:
@@ -98,28 +99,14 @@ class Losungen(commands.Cog):
 
 
 # Create a discord bot with discord.ext
-Bot = commands.Bot(command_prefix='!')
-Bot.add_cog(Losungen(Bot))
+def main(token, parser):
+    # Check whether the file "Losungen.csv" exists
+    bot_ = commands.Bot(command_prefix='!')
+    bot_.add_cog(Losungen(bot_, parser))
 
-# Check whether the file "Losungen.csv" exists
-if not os.path.isfile("../Losungen.csv"):
-    print("Losungen.csv nicht gefunden. Platzieren sie die Datei in der gleichen Ebene wie dieses Script.")
-    print("Bitte laden sie die korrekte Datei hier herunter: https://www.losungen.de/digital/")
-    print("ABBRUCH")
-    exit()
+    @bot_.event
+    async def on_ready():
+        print("Bot ist bereit.")
 
-# Check whether the file "Losungen.csv" is empty
-if not os.path.getsize("../Losungen.csv"):
-    print("Losungen.csv ist leer. Bitte laden sie die korrekte Datei hier herunter: https://www.losungen.de/digital/")
-    print("ABBRUCH")
-    exit()
-
-
-# Run the bot
-@Bot.event
-async def on_ready():
-    print("Bot ist bereit.")
-
-
-if __name__ == '__main__':
-    Bot.run(get_token())
+    # Run the bot
+    bot_.run(token)
