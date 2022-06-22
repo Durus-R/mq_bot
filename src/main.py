@@ -1,5 +1,6 @@
 import contextlib
 import os
+import importlib
 from discord.ext import commands
 from csvparser import CsvParser, DateNotFoundError
 
@@ -24,7 +25,7 @@ def get_token():
     """
     with contextlib.suppress(ImportError):
         from config import Discord_Token
-        import ..config as config
+        config = importlib.import_module("..config")
         return config.Discord_Token
     if os.path.isfile("/SECRET/token.txt"):
         return open('/SECRET/token.txt', 'r').read()
