@@ -1,6 +1,6 @@
 import csv
 import datetime
-from losungen import Losung
+from .losungen import Losung
 
 
 class DateNotFoundError(Exception):

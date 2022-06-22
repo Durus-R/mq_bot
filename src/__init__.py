@@ -2,7 +2,7 @@ import contextlib
 import os
 import importlib
 from discord.ext import commands
-from csvparser import CsvParser, DateNotFoundError
+from .csvparser import CsvParser, DateNotFoundError
 
 
 # Check whether the file "token.txt" exists
