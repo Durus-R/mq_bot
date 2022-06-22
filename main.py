@@ -1,4 +1,7 @@
-import config
+try:
+    import config
+except ImportError:
+    import secret.config as config
 import src.csvparser
 
 if __name__ == "__main__":
