@@ -5,5 +5,5 @@ This bot is living on the Mainquest Discord Server (<a href="mainquest.org">main
 
 Still under production!
 
-Please take a look on the Terms of Usage for the Losungen.
+Please take a look on the Wiki.
 
