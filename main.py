@@ -1,8 +1,12 @@
+import os
+
 try:
     import config
+    DT = config.DISCORD_TOKEN
 except ImportError:
-    import secret.config as config
+    DT = os.getenv("DISCORD_TOKEN")
+
 import src.csvparser
 
 if __name__ == "__main__":
-    src.main(config.Discord_Token, src.csvparser.CsvParser("Losungen.csv"))
+    src.main(DT, src.csvparser.CsvParser("Losungen.csv"))
