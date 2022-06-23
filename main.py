@@ -6,6 +6,7 @@ try:
     import config
     DT = config.DISCORD_TOKEN
 except ImportError:
+    config = None
     DT = os.getenv("DISCORD_TOKEN")
 
 import src.csvparser
