@@ -1,6 +1,8 @@
 import os
 
 try:
+    if "DISCORD_TOKEN" in os.environ:
+        raise ImportError
     import config
     DT = config.DISCORD_TOKEN
 except ImportError:
