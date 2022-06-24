@@ -1,5 +1,6 @@
 import os
 import src.csvparser
+from src import db
 
 DT = None
 try:
@@ -21,5 +22,7 @@ except ImportError:
 
         exit(1)
 
+db_session = db.create_sqlite_engine()
+
 if __name__ == "__main__":
-    src.main(DT, src.csvparser.CsvParser("Losungen.csv"))
+    src.main(DT, db_session, src.csvparser.CsvParser("Losungen.csv"))
