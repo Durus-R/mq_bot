@@ -99,12 +99,18 @@ class Losungen(commands.Cog):
     async def after_losung_loop(self):
         await self.bot.wait_until_ready()
 
+
+class Admin(commands.Cog):
+    def __init__(self, bot, engine):
+        self.bot = bot
+        self.eng = engine
+
     @commands.command()
     @commands.has_permissions(administrator=True)  # Intern only - Fails if already in database
     async def regen_db(self, ctx, hour):
         with Session(self.eng) as session:
             session.add_all([Guild(name=ctx.guild.name, id=ctx.guild.id, prefix="!", losung_channel=ctx.channel.id,
-                                   losung_hour=hour)])
+                                    losung_hour=hour)])
             session.commit()
 
     @commands.command()
@@ -144,7 +150,9 @@ def main(token, engine, parser):
     # Check whether the file "Losungen.csv" exists
     bot_ = commands.Bot(command_prefix=get_prefix)
     l_cog = Losungen(bot_, parser, engine)
+    a_cog = Admin(bot_, engine)
     bot_.add_cog(l_cog)
+    bot_.add_cog(a_cog)
 
     @bot_.event
     async def on_ready():
