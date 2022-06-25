@@ -2,6 +2,7 @@ import contextlib
 import datetime
 
 from discord.ext import commands, tasks
+from sqlalchemy.orm import Session
 
 from .db import *
 
@@ -15,6 +16,7 @@ class Losungen(commands.Cog):
         self.parser = parser
         self.eng = engine
         self.losung_loop.start()
+        self.losung_loop2.start()
 
     @commands.command()
     async def info(self, ctx):
@@ -74,13 +76,30 @@ class Losungen(commands.Cog):
         await ctx.send("Losungstext: " + word_of_day.at_v + ": " + word_of_day.at + "\n" +
                        "Lehrtext: " + word_of_day.nt_v + ": " + word_of_day.nt)
 
-    @tasks.loop(hours=1)
+    @tasks.loop(minutes=1)
     async def losung_loop(self):
         if self.bot.is_ready():
             print("Time again...")
             with Session(self.eng) as session:
 
                 for i in session.query(Guild).all():
+                    if self.bot.get_channel(i.autodel_channel):
+                        print("Time for Autodeleting something...")
+                        async for message in self.bot.get_channel(i.autodel_channel). \
+                                history():
+                            if (datetime.datetime.now() - message.created_at).hour > i.autodel_timeout:
+
+                                await message.delete()
+                    else:
+                        print("No History")
+
+    @tasks.loop(hours=1)
+    async def losung_loop2(self):
+        if self.bot.is_ready():
+            print("Time again...")
+            with Session(self.eng) as sess:
+
+                for i in sess.query(Guild).all():
                     if i.losung_channel == 0:
                         continue
                     if datetime.datetime.now().hour == i.losung_hour:
@@ -92,10 +111,12 @@ class Losungen(commands.Cog):
                                                                               + word_of_day.nt)
 
     @losung_loop.before_loop
+    @losung_loop2.before_loop
     async def before_losung_loop(self):
         await self.bot.wait_until_ready()
 
     @losung_loop.after_loop
+    @losung_loop2.after_loop
     async def after_losung_loop(self):
         await self.bot.wait_until_ready()
 
@@ -110,11 +131,11 @@ class Admin(commands.Cog):
     async def regen_db(self, ctx, hour):
         with Session(self.eng) as session:
             session.add_all([Guild(name=ctx.guild.name, id=ctx.guild.id, prefix="!", losung_channel=ctx.channel.id,
-                                    losung_hour=hour)])
+                                   losung_hour=hour, autodel_channel=0, autodel_timeout=0)])
             session.commit()
 
     @commands.command()
-    async def show_servers(self, ctx):  # TODO : Add Cog Admin
+    async def show_servers(self, ctx):
         with Session(self.eng) as session:
             for guild in session.query(Guild).all():
                 await ctx.send(f"{guild.name}")
@@ -136,6 +157,16 @@ class Admin(commands.Cog):
             guild.losung_hour = hour
             session.commit()
         await ctx.send(f"Hour changed to {hour}")
+
+    @commands.command(pass_context=True)
+    @commands.has_permissions(administrator=True)  # ensure that only administrators can use this command
+    async def changeautodel(self, ctx, hour):
+        with Session(self.eng) as session:
+            guild = session.query(Guild).filter(Guild.id == ctx.guild.id).first()
+            guild.autodel_timeout = hour
+            guild.autodel_channel = ctx.channel.id
+            session.commit()
+        await ctx.send(f"Autodeleting after {hour} hours.")
 
 
 # Create a discord bot with discord.ext

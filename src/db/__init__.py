@@ -3,7 +3,7 @@ import sys
 
 import sqlalchemy
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, Session
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
@@ -16,6 +16,8 @@ class Guild(Base):
     prefix = sqlalchemy.Column(sqlalchemy.String)
     losung_channel = sqlalchemy.Column(sqlalchemy.Integer)
     losung_hour = sqlalchemy.Column(sqlalchemy.Integer)
+    autodel_channel = sqlalchemy.Column(sqlalchemy.Integer)
+    autodel_timeout = sqlalchemy.Column(sqlalchemy.Integer)
 
 
 def create_sqlite_engine():
