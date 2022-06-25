@@ -83,7 +83,7 @@ class Losungen(commands.Cog):
             with Session(self.eng) as session:
 
                 for i in session.query(Guild).all():
-                    if self.bot.get_channel(i.autodel_channel):
+                    if i.autodel_timeout > 0 and self.bot.get_channel(i.autodel_channel):
                         print("Time for Autodeleting something...")
                         async for message in self.bot.get_channel(i.autodel_channel). \
                                 history():
