@@ -18,7 +18,7 @@ except ImportError:
     except OSError:
         print("Keine Konfiguration gefunden.")
         print("Gehen sie zu https://github.com/mainquestministries/mq_bot/wiki/How-to-run#create-a-configpy "
-              "um wiederholen sie die dort genannten Schritte.")
+              "und wiederholen sie die dort genannten Schritte.")
 
         exit(1)
 
