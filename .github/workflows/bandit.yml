@@ -16,7 +16,7 @@ jobs:
      - name: Check
        uses: jpetrucciani/bandit-check@master
        with:
-        path: '.'
+        path: '-r ./src'
   
 
 
