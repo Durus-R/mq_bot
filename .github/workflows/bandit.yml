@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Bandit Vulnerabilitie scan
 
 on:
   push:
