@@ -79,6 +79,7 @@ class Losungen(commands.Cog):
     @tasks.loop(minutes=1)
     async def losung_loop(self):
         if self.bot.is_ready():
+            delmsg = 0
             print("Time again...")
             with Session(self.eng) as session:
 
@@ -87,9 +88,10 @@ class Losungen(commands.Cog):
                         print("Time for Autodeleting something...")
                         async for message in self.bot.get_channel(i.autodel_channel). \
                                 history():
-                            if (datetime.datetime.now() - message.created_at).hour > i.autodel_timeout:
-
+                            if (datetime.datetime.now() - message.created_at).seconds / 3600 > i.autodel_timeout:
                                 await message.delete()
+                                delmsg += 1
+                        print("Deleted {} messages.".format(delmsg))
                     else:
                         print("No History")
 
@@ -184,6 +186,13 @@ def main(token, engine, parser):
     a_cog = Admin(bot_, engine)
     bot_.add_cog(l_cog)
     bot_.add_cog(a_cog)
+
+    @bot_.event
+    async def on_message(message):
+        if not message.author.bot:
+            if message.content.isupper():
+                await message.channel.send("https://c.tenor.com/2wHYojwhV_EAAAAC/keep-calm-cat.gif")
+            await bot_.process_commands(message)
 
     @bot_.event
     async def on_ready():

@@ -25,9 +25,9 @@ def create_sqlite_engine():
     Creates a sqlalchemy engine for sqlite.
     """
     if "inux" in sys.platform and os.path.exists("/DB/database.sqlite"):
-        engine = create_engine("sqlite:////DB/database.sqlite", echo=True, future=True)
+        engine = create_engine("sqlite:////DB/database.sqlite", echo=False, future=True)
     else:
-        engine = create_engine("sqlite:///database.sqlite", echo=True, future=True)
+        engine = create_engine("sqlite:///database.sqlite", echo=False, future=True)
     if not sqlalchemy.inspect(engine).has_table('guild'):
         Base.metadata.create_all(engine)
     return engine
