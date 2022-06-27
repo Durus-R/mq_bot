@@ -1,5 +1,5 @@
 # Mainquest Bot
-[![Python application](https://github.com/mainquestministries/mq_bot/actions/workflows/bandit.yml/badge.svg)](https://github.com/mainquestministries/mq_bot/actions/workflows/bandit.yml)
+[![Bandit Scan](https://github.com/mainquestministries/mq_bot/actions/workflows/bandit.yml/badge.svg)](https://github.com/mainquestministries/mq_bot/actions/workflows/bandit.yml)
 [![CodeQL](https://github.com/mainquestministries/mq_bot/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/mainquestministries/mq_bot/actions/workflows/codeql-analysis.yml)
 [![Build Docker Image](https://github.com/mainquestministries/mq_bot/actions/workflows/docker-image.yml/badge.svg)](https://github.com/mainquestministries/mq_bot/actions/workflows/docker-image.yml)
 
