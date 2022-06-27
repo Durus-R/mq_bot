@@ -102,7 +102,7 @@ class Losungen(commands.Cog):
             with Session(self.eng) as sess:
 
                 for i in sess.query(Guild).all():
-                    if i.losung_channel == 0:
+                    if i.losung_channel == 0 or i.losung_hour == 0:
                         continue
                     if datetime.datetime.now().hour == i.losung_hour:
                         with contextlib.suppress(DateNotFoundError):
@@ -201,7 +201,8 @@ def main(token, engine, parser):
     @bot_.event
     async def on_guild_join(guild):  # when the bot joins the guild
         with Session(engine) as session:
-            session.add_all(Guild(name=guild.name, id=guild.id, prefix="!"))
+            session.add_all(Guild(name=guild.name, id=guild.id, prefix="!", losung_channel=0, losung_hour=0,
+                                  autodel_channel=0, autodel_timeout=0))
 
     @bot_.event
     async def on_guild_remove(guild):  # when the bot is removed from the guild
