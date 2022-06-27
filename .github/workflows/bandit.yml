@@ -13,10 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Check
-       uses: jpetrucciani/bandit-check@master
-       with:
-        path: '-r ./src'
+     - run: apt install python3-pip
+     - run: pip3 install bandit
+     - run: bandit -r ${{ github.workspace }}
+     
+     
   
 
 
